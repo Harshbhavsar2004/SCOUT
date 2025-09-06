@@ -2,6 +2,7 @@
 
 This project is a **Next.js-based Online Assessment & Examination System** that integrates **Course Outcomes (CO) – Program Outcomes (PO) mapping** and leverages **Blockchain** for secure and tamper-proof exam management.
 
+![Alt text](https://www.pinterest.com/ideas/dog-giving-up-meme/934174985772/)
 ---
 
 ## 📦 Prerequisites

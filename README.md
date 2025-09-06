@@ -2,7 +2,7 @@
 
 This project is a **Next.js-based Online Assessment & Examination System** that integrates **Course Outcomes (CO) – Program Outcomes (PO) mapping** and leverages **Blockchain** for secure and tamper-proof exam management.
 
-![Alt text](https://imgs.search.brave.com/dD6JYYEq_eYjPctgirqtGWid8GjBm 7LQcR9EkpNInk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzVlL2Zh/Lzc2LzVlZmE3Njdj/YTIwNWRlYjM2ZmI4/ODg3N2NkOGRkMzFh/LmpwZw)
+![Alt text](https://github.com/Harshbhavsar2004/Smart-contract-based-/blob/main/public/Cut%20Meme.jpeg)
 ---
 
 ## 📦 Prerequisites

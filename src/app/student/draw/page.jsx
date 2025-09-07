@@ -1,21 +1,14 @@
 "use client";
 
-import React from "react";
-import { Excalidraw, convertToExcalidrawElements } from "@excalidraw/excalidraw";
+import dynamic from "next/dynamic";
 import "@excalidraw/excalidraw/index.css";
 
-const ExcalidrawWrapper = () => {
-  console.info(
-    convertToExcalidrawElements([
-      {
-        type: "rectangle",
-        id: "rect-1",
-        width: 186.47265625,
-        height: 141.9765625,
-      },
-    ])
-  );
+const Excalidraw = dynamic(
+  async () => (await import("@excalidraw/excalidraw")).Excalidraw,
+  { ssr: false } // <-- disable server-side rendering
+);
 
+const ExcalidrawWrapper = () => {
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
       <Excalidraw />

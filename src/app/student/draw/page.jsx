@@ -1,13 +1,18 @@
-"use client";
+"use client"
 import dynamic from "next/dynamic";
-import "@excalidraw/excalidraw/index.css";
 
-const Excalidraw = dynamic(
-  async () => (await import("@excalidraw/excalidraw")).Excalidraw,
+// Since client components get prerenderd on server as well hence importing
+// the excalidraw stuff dynamically with ssr false
+
+const ExcalidrawWrapper = dynamic(
+  async () => (await import("../excalidrawWrapper")).default,
   {
     ssr: false,
   },
 );
-export default function App() {
-  return <Excalidraw />;
+
+export default function Page() {
+  return (
+    <ExcalidrawWrapper />
+  );
 }

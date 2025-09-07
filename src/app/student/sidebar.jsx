@@ -28,14 +28,14 @@ export function SidebarDemo({ children }) {
     },
     {
       label: "Exams",
-      href: "/Exams",
+      href: "/student/draw",
       icon: (
         <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
-      label: "Settings",
-      href: "#",
+      label: "Draw",
+      href: "/draw",
       icon: (
         <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),

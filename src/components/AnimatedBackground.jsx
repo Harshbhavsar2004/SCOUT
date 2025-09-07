@@ -11,7 +11,7 @@ export default function HeroHighlightDemo() {
   const router = useRouter();
   const handleRedirect = () => {
     console.log("Button clicked");
-    router.push("/dashboard");
+    router.push("/student");
   };
   const words2 = `Now Online Cheating Is Impossible`;
   return (

@@ -3,9 +3,13 @@
 import dynamic from "next/dynamic";
 import "@excalidraw/excalidraw/index.css";
 
+// Dynamically import Excalidraw only on the client
 const Excalidraw = dynamic(
-  async () => (await import("@excalidraw/excalidraw")).Excalidraw,
-  { ssr: false } // <-- disable server-side rendering
+  () => import("@excalidraw/excalidraw").then((mod) => mod.Excalidraw),
+  {
+    ssr: false,
+    loading: () => <p>Loading drawing board...</p>, // optional fallback
+  }
 );
 
 const ExcalidrawWrapper = () => {

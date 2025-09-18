@@ -1,22 +1,44 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-
-const isTeacherRoute = createRouteMatcher(["/teacher(.*)"]);
-const isCoordinatorRoute = createRouteMatcher(["/coordinator(.*)"]);
-const isStudentRoute = createRouteMatcher(["/student(.*)"]);
-const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
-
+import { clerkMiddleware } from "@clerk/nextjs/server"
+import { NextResponse } from "next/server"
 
 export default clerkMiddleware(async (auth, req) => {
-  const role = (await auth()).sessionClaims?.metadata?.role;
-  // Single-role approach
-  if ((isTeacherRoute(req) && role !== "teacher") ||
-      (isCoordinatorRoute(req) && role !== "coordinator") ||
-      (isAdminRoute(req) && role !== "admin")) {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
-  
-  // If multiple roles set via array, use hasRole(...)
-});
+  const { sessionClaims } = await auth()
+  const pathname = req.nextUrl.pathname
 
-export const config = { matcher: ["/((?!_next).*)"] };
+  // ✅ Public routes that don't require login
+  const publicRoutes = ["/", "/about", "/contact"] // add more if needed
+
+  if (publicRoutes.includes(pathname)) {
+    return NextResponse.next()
+  }
+
+  // ✅ If not logged in, redirect to sign-in
+  if (!sessionClaims) {
+    return NextResponse.redirect(new URL("/sign-in", req.url))
+  }
+
+  const role = sessionClaims.metadata?.role
+
+  // Define role-based access rules
+  const roleRoutes = {
+    student: /^\/student(\/|$)/,
+    teacher: /^\/teacher(\/|$)/,
+    admin: /^\/admin(\/|$)/,
+    "co-ordinator": /^\/co-ordinator(\/|$)/,
+  }
+
+  // ✅ Allow if user’s role matches the route
+  if (role && roleRoutes[role] && roleRoutes[role].test(pathname)) {
+    return NextResponse.next()
+  }
+
+  // ❌ Otherwise → redirect to home
+  return NextResponse.redirect(new URL("/", req.url))
+})
+
+export const config = {
+  matcher: [
+    // Run middleware for everything except static files/_next
+    "/((?!_next|.*\\..*).*)",
+  ],
+}

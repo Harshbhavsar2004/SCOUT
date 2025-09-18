@@ -1,19 +1,50 @@
 "use client";
+
 import { TextGenerateEffect } from "./ui/text-generate-effect";
 import { HeroHighlight } from "./ui/hero-highlight";
 import HeroScrollDemo from "./ContainerScroll";
 import FeaturesSectionDemo from "./featuresection";
 import Payment from "./Payment";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 export default function HeroHighlightDemo() {
   const words1 = `Beyond secure — better than any exam platform out there.`;
-  const router = useRouter();
-  const handleRedirect = () => {
-    console.log("Button clicked");
-    router.push("/student");
-  };
   const words2 = `Now Online Cheating Is Impossible`;
+
+  const router = useRouter();
+  const { user } = useUser(); // ✅ Clerk hook to get logged-in user
+
+  const handleRedirect = () => {
+    if (!user) {
+      // If not logged in, send to sign-in
+      router.push("/");
+      return;
+    }
+
+    const role = user.publicMetadata?.role;
+
+    // ✅ Role-based redirects
+    switch (role) {
+      case "admin":
+        router.push("/admin");
+        break;
+      case "teacher":
+        router.push("/teacher");
+        break;
+      case "student":
+        router.push("/student");
+        break;
+      case "co-ordinator":
+        router.push("/co-ordinator");
+        break;
+      default:
+        // If no role, maybe push to a default page
+        router.push("/");
+        break;
+    }
+  };
+
   return (
     <HeroHighlight>
       <section className="mt-48 flex flex-col items-center justify-center">
@@ -21,7 +52,7 @@ export default function HeroHighlightDemo() {
         <br />
         <button
           onClick={handleRedirect}
-          className="px-10 py-1  border-2 cursor-pointer border-black dark:border-white uppercase bg-white text-black transition duration-200 text-sm shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(255,255,255),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)] "
+          className="px-10 py-1 border-2 cursor-pointer border-black dark:border-white uppercase bg-white text-black transition duration-200 text-sm shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(255,255,255),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)]"
         >
           Onboard Now !!
         </button>

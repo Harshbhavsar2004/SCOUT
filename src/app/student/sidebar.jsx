@@ -6,6 +6,7 @@ import {
   IconBrandTabler,
   IconSettings,
   IconUserBolt,
+  IconBrush
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -21,20 +22,20 @@ export function SidebarDemo({ children }) {
   const links = [
     {
       label: "Dashboard",
-      href: "/dashboard",
+      href: "/student",
       icon: (
         <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
-      label: "Exams",
+      label: "Draw",
       href: "/student/draw",
       icon: (
-        <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+        <IconBrush className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
-      label: "Draw",
+      label: "Settings",
       href: "/draw",
       icon: (
         <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />

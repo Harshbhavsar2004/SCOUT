@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 // the excalidraw stuff dynamically with ssr false
 
 const ExcalidrawWrapper = dynamic(
-  async () => (await import("../excalidrawWrapper")).default,
+  async () => (await import("../ExcalidrawWrapper")).default,
   {
     ssr: false,
   },

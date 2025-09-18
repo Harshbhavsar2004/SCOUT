@@ -35,8 +35,8 @@ export default function HeroHighlightDemo() {
       case "student":
         router.push("/student");
         break;
-      case "co-ordinator":
-        router.push("/co-ordinator");
+      case "coordinator":
+        router.push("/coordinator");
         break;
       default:
         // If no role, maybe push to a default page

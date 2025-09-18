@@ -29,7 +29,7 @@ export default async function AdminDashboard({ searchParams }) {
         return <GraduationCap className="h-4 w-4" />
       case "student":
         return <BookOpen className="h-4 w-4" />
-      case "co-ordinator":
+      case "coordinator":
         return <Users className="h-4 w-4" />
       default:
         return <UserX className="h-4 w-4" />
@@ -44,7 +44,7 @@ export default async function AdminDashboard({ searchParams }) {
         return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
       case "student":
         return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-      case "co-ordinator":
+      case "coordinator":
         return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200"
       default:
         return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
@@ -185,7 +185,7 @@ export default async function AdminDashboard({ searchParams }) {
                       <form action={setRole}>
                         <input type="hidden" value={query || ""} name="search" />
                         <input type="hidden" value={user.id} name="id" />
-                        <input type="hidden" value="co-ordinator" name="role" />
+                        <input type="hidden" value="coordinator" name="role" />
                         <Button
                           type="submit"
                           variant="outline"
@@ -321,7 +321,7 @@ export default async function AdminDashboard({ searchParams }) {
                               <form action={setRole}>
                                 <input type="hidden" value={''} name="search" />
                                 <input type="hidden" value={user.id} name="id" />
-                                <input type="hidden" value="co-ordinator" name="role" />
+                                <input type="hidden" value="coordinator" name="role" />
                                 <Button
                                   type="submit"
                                   variant="outline"

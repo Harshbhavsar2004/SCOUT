@@ -18,13 +18,14 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   const role = sessionClaims.metadata?.role
+  console.log(role)
 
   // Define role-based access rules
   const roleRoutes = {
     student: /^\/student(\/|$)/,
     teacher: /^\/teacher(\/|$)/,
     admin: /^\/admin(\/|$)/,
-    "co-ordinator": /^\/co-ordinator(\/|$)/,
+    coordinator: /^\/coordinator(\/|$)/,
   }
 
   // ✅ Allow if user’s role matches the route

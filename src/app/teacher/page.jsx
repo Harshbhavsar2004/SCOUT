@@ -1,4 +1,4 @@
-import { checkRole } from "@/lib/roles";
+import { checkRole } from "@/utils/roles";
 import { redirect } from "next/navigation";
 
 export default async function TeacherPage() {

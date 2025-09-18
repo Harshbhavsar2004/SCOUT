@@ -2,21 +2,16 @@
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
-  IconArrowLeft,
   IconBrandTabler,
   IconSettings,
-  IconUserBolt,
   IconBrush
 } from "@tabler/icons-react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-
-// Clerk imports
-import { useUser, useClerk, UserButton } from "@clerk/nextjs";
+import { useUser, UserButton } from "@clerk/nextjs";
+import { NavbarLogo } from "@/components/ui/resizable-navbar";
 
 export function SidebarDemo({ children }) {
   const { user } = useUser(); // Get logged-in user
-  const { signOut } = useClerk(); // Sign-out function
   const [open, setOpen] = useState(false);
 
   const links = [
@@ -53,7 +48,7 @@ export function SidebarDemo({ children }) {
     <Sidebar open={open} setOpen={setOpen}>
       <SidebarBody className="justify-between gap-10">
         <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
-          {open ? <Logo /> : <LogoIcon />}
+          {<Logo />}
           <div className="mt-8 flex flex-col gap-2">
             {links.map((link, idx) => (
               <SidebarLink key={idx} link={link} />
@@ -83,26 +78,6 @@ export function SidebarDemo({ children }) {
 }
 
 export const Logo = () => (
-  <a
-    href="#"
-    className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
-  >
-    <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
-    <motion.span
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="font-medium whitespace-pre text-black dark:text-white"
-    >
-      Acet Labs
-    </motion.span>
-  </a>
+  <NavbarLogo/>
 );
 
-export const LogoIcon = () => (
-  <a
-    href="#"
-    className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
-  >
-    <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
-  </a>
-);

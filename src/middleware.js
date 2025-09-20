@@ -12,15 +12,10 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next()
   }
 
-  // ✅ If not logged in, redirect to sign-in
-  if (!sessionClaims) {
-    return NextResponse.redirect(new URL("/sign-in", req.url))
-  }
+  const role = sessionClaims?.metadata?.role
+  console.log("Role from session:", role)
 
-  const role = sessionClaims.metadata?.role
-  console.log(role)
-
-  // Define role-based access rules
+  // ✅ Role-based route patterns
   const roleRoutes = {
     student: /^\/student(\/|$)/,
     teacher: /^\/teacher(\/|$)/,
@@ -33,8 +28,6 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next()
   }
 
-  // ❌ Otherwise → redirect to home
-  return NextResponse.redirect(new URL("/", req.url))
 })
 
 export const config = {

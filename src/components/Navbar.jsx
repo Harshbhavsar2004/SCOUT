@@ -42,7 +42,7 @@ export function NavbarDemo() {
             </SignedIn>
             <SignedOut>
               <SignInButton mode="modal">
-                <NavbarButton variant="secondary">Login</NavbarButton>
+                <NavbarButton variant="primary">Login</NavbarButton>
               </SignInButton>
               <SignUpButton mode="modal">
                 <NavbarButton variant="primary">Sign Up</NavbarButton>

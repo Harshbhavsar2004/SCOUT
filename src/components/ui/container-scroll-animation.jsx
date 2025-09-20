@@ -32,8 +32,8 @@ export const ContainerScroll = ({
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    (<div
-      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
+    <div
+      className="h-[30rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
       ref={containerRef}>
       <div
         className="py-10 md:py-40 w-full relative"
@@ -45,7 +45,7 @@ export const ContainerScroll = ({
           {children}
         </Card>
       </div>
-    </div>)
+    </div>
   );
 };
 
@@ -54,13 +54,13 @@ export const Header = ({
   titleComponent
 }) => {
   return (
-    (<motion.div
+    <motion.div
       style={{
         translateY: translate,
       }}
       className="div max-w-5xl mx-auto text-center">
       {titleComponent}
-    </motion.div>)
+    </motion.div>
   );
 };
 
@@ -70,7 +70,7 @@ export const Card = ({
   children
 }) => {
   return (
-    (<motion.div
+    <motion.div
       style={{
         rotateX: rotate,
         scale,
@@ -82,6 +82,6 @@ export const Card = ({
         className=" h-full w-full  overflow-hidden rounded-2xl bg-gray-100 dark:bg-zinc-900 md:rounded-2xl md:p-4 ">
         {children}
       </div>
-    </motion.div>)
+    </motion.div>
   );
 };

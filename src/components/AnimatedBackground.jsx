@@ -1,30 +1,28 @@
 "use client";
 
-import { TextGenerateEffect } from "./ui/text-generate-effect";
 import { HeroHighlight } from "./ui/hero-highlight";
-import HeroScrollDemo from "./ContainerScroll";
-import FeaturesSectionDemo from "./featuresection";
-import Payment from "./Payment";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-
+import { Button } from "./ui/button";
+import { HeroScrollDemo } from "./HeroScrollDemo";
+import Image from "next/image";
 export default function HeroHighlightDemo() {
-  const words1 = `Beyond secure — better than any exam platform out there.`;
-  const words2 = `Now Online Cheating Is Impossible`;
-
   const router = useRouter();
-  const { user } = useUser(); // ✅ Clerk hook to get logged-in user
+  const { isLoaded, isSignedIn, user } = useUser();
 
   const handleRedirect = () => {
-    if (!user) {
-      // If not logged in, send to sign-in
-      router.push("/");
+    console.log("isLoaded", isLoaded);
+    console.log("isSignedIn", isSignedIn);
+    console.log("user", user);
+    if (!isLoaded) return;
+
+    if (!isSignedIn) {
+      router.push("/sign-in");
       return;
     }
 
-    const role = user.publicMetadata?.role;
+    const role = user?.publicMetadata?.role;
 
-    // ✅ Role-based redirects
     switch (role) {
       case "admin":
         router.push("/admin");
@@ -39,41 +37,52 @@ export default function HeroHighlightDemo() {
         router.push("/coordinator");
         break;
       default:
-        // If no role, maybe push to a default page
         router.push("/");
         break;
     }
   };
 
+
   return (
     <HeroHighlight>
-      <section className="mt-48 flex flex-col items-center justify-center">
-        <h1 className="text-5xl font-extrabold">Online Exam Platform</h1>
-        <br />
-        <button
-          onClick={handleRedirect}
-          className="px-10 py-1 border-2 cursor-pointer border-black dark:border-white uppercase bg-white text-black transition duration-200 text-sm shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(255,255,255),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)]"
-        >
-          Onboard Now !!
-        </button>
-        <TextGenerateEffect words={words1} />
-        <TextGenerateEffect duration={5} words={words2} />
-        <div className="-mt-20">
-          <HeroScrollDemo />
+    <section className="relative overflow-hidden mt-10 py-30 sm:py-32">
+  <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
+      
+      {/* Left Content */}
+      <div className="text-center lg:text-left ml-20 text-center">
+        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl text-balance">
+        Smart Contract for Outcome-based University Tracking
+        </h1>
+        <p className="mt-6 text-lg leading-8 text-muted-foreground text-pretty">
+          Revolutionize academic assessment with blockchain-powered security, transparent evaluation, and seamless
+          CO-PO mapping. Build trust in education with tamper-proof examination systems.
+        </p>
+        <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
+          <Button
+            size="lg"
+            className="px-8"
+            onClick={handleRedirect}
+            disabled={!isLoaded}  // disable until Clerk loads
+          >
+            Get Started
+          </Button>
+          <Button variant="secondary" size="lg" className="px-8">
+            Request Demo
+          </Button>
         </div>
-      </section>
-      <section
-        id="features"
-        className="min-h-screen flex items-center justify-center"
-      >
-        <FeaturesSectionDemo />
-      </section>
-      <section
-        id="pricing"
-        className="min-h-screen flex items-center justify-center"
-      >
-        <Payment />
-      </section>
+      </div>
+
+      {/* Right Image */}
+      <div className="flex justify-center">
+       <Image src="/dashboard.webp" alt="Exam Illustration" width={500} height={500} className="border-8 border-black rounded-lg"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <HeroScrollDemo/>
     </HeroHighlight>
   );
 }

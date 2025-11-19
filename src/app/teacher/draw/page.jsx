@@ -1,20 +1,10 @@
-"use client";
+import { Suspense } from "react";
+import DrawPage from "./drawpage";
 
-import { useSearchParams } from "next/navigation";
-import dynamic from "next/dynamic";
-
-const ExcalidrawWrapper = dynamic(
-  () => import("../ExcalidrawWrapper"),
-  { ssr: false }
-);
-
-export default function DrawPage() {
-  const searchParams = useSearchParams();
-  const questionId = searchParams.get("questionId");
-
+export default function Page() {
   return (
-    <div className="h-screen">
-      <ExcalidrawWrapper questionId={questionId} />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <DrawPage />
+    </Suspense>
   );
 }
